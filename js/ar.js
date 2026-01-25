@@ -1,7 +1,7 @@
 export function getArElements() {
-    const marker = document.getElementsById("marker");
-    const graphRoot = document.getElementsById("graph-root");
-    const titleElement = document.getElemetsById("graph-title");
+    const marker = document.getElementById("marker");
+    const graphRoot = document.getElementById("graph-root");
+    const titleElement = document.getElemetById("graph-title");
     const statusElement = document.getElementById("status");
     
     if (!marker || !graphRoot || !titleElement || !statusElement) {
