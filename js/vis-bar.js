@@ -1,82 +1,18 @@
-console.log("AR app loaded");
+export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
+    const exaggeration = Number(options.exaggeration ?? 1);
 
-// -- Global variables --
-// data being visualised.
-let currentData = null;
-// controlled by slider.
-let exaggeration = 1;
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Get elements from DOM.
-    const statusElement = document.getElementById("status");
-    const marker = document.getElementById("marker");
-    const graphRoot = document.getElementById("graph-root");
-    const titleElement = document.getElementById("graph-title");
-
-    const exaggerationInput = document.getElementById("exaggeration");
-    const exaggerationValue = document.getElementById("exaggerationValue");
-
-    // Checks
-    if (!marker || !graphRoot || !titleElement) {
-        console.warn("Required elements missing");
-        return;
-    }
-
-    // Demo data (to be replaced with fetched JSON later)
-    currentData = {
-        title: "Demo dataset",
-        type: "bar",
-        labels: ["Q1", "Q2", "Q3", "Q4"],
-        series: [{ name: "A", values: [3, 5, 2, 6] }]
-    };
-
-    // Set title
-    titleElement.setAttribute("value", currentData.title);
-
-    // Only build graph once marker is found, not every frame.
-    let renderedOnce = false;
-
-    marker.addEventListener("markerFound", () => {
-        statusElement.textContent = "Status: marker found.";
-
-        //  Render first time marker is found.
-        if (!renderedOnce) {
-            renderGraph(graphRoot, titleElement, currentData);
-            renderedOnce = true;
-        }
-    });
-
-    marker.addEventListener("markerLost", () => {
-        statusElement.textContent = "Status: marker lost."
-    });
-    
-    // Slider behaviour
-    exaggerationInput.addEventListener("input", () => {
-        exaggeration = Number(exaggerationInput.value);
-        exaggerationValue.textContent = `${exaggeration.toFixed(1)}x`;
-
-        if (renderedOnce && currentData) {
-            renderGraph(graphRoot, titleElement, currentData);
-        }
-    });
-})
-
-// Render the graph
-function renderGraph(graphRoot, titleElement, data) {
-    // Clear previous bars / labels.
+    // Clear old graph
     while(graphRoot.firstChild) graphRoot.removeChild(graphRoot.firstChild);
 
-    // Update title
-    titleElement.setAttribute("value", data.title ?? "Unititled");
+    titleElement.setAttribute("value", data?.title ?? "Untitled");
 
-    // Validation
-    if (!data?.series?.[0]?.values?.length || !data?.labels?.length) {
-        addFloatingText(graphRoot, "Invalid data", { x:0, y:1, z:0 });
+    const values = data?.series?.[0].values;
+    const labels = data?.labels;
+
+    if (!Array.isArray(values) || !values.length || !Array.isArray(labels) || !labels.length) {
+        addText(graphRoot, "Invalid data", { x:0, y:1, z:0 });
         return;
     }
-
-    const values = data.series[0].values;
-    const labels = data.labels;
 
     const maxVal = Math.max(...values, 1);
 
@@ -100,7 +36,6 @@ function renderGraph(graphRoot, titleElement, data) {
     base.setAttribute("material", "shader: flat; opacity: 0.6; transparent: true;");
     graphRoot.appendChild(base);
 
-    // Create each bar + labels
     values.forEach((v, i) => {
         const norm = v / maxVal;
 
@@ -111,7 +46,7 @@ function renderGraph(graphRoot, titleElement, data) {
         const x = startX + i * (barWidth + barGap);
         const z = -0.12;
 
-        // A-Frame boxes
+        // Bar
         const bar = document.createElement("a-box");
         bar.setAttribute("width", barWidth);
         bar.setAttribute("depth", 0.18);
@@ -143,11 +78,9 @@ function renderGraph(graphRoot, titleElement, data) {
         lab.setAttribute("position", `${x} ${baseY + 0.03} ${z + 0.22}`);
         graphRoot.appendChild(lab);
     });
-    // Check if bars are being created
-    console.log("Graph children:", graphRoot.childElementCount);
 }
 
-function addFloatingText(root, text, pos) {
+function addText(root, text, pos) {
     const t = document.createElement("a-text");
     t.setAttribute("value", text);
     t.setAttribute("align", "center");
