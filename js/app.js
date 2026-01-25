@@ -78,6 +78,8 @@ function renderGraph(graphRoot, titleElement, data) {
     const values = data.series[0].values;
     const labels = data.labels;
 
+    const maxVal = Math.max(...values, 1);
+
     // Graph layout settings
     const barWidth = 0.18; // width of bars
     const barGap = 0.06; // spacing between bars
@@ -95,6 +97,7 @@ function renderGraph(graphRoot, titleElement, data) {
     base.setAttribute("depth", 0.6);
     base.setAttribute("position", `0 ${baseY} 0`);
     base.setAttribute("color", "#222");
+    base.setAttribute("material", "shader: flat; opacity: 0.6; transparent: true;");
     graphRoot.appendChild(base);
 
     // Create each bar + labels
@@ -106,7 +109,7 @@ function renderGraph(graphRoot, titleElement, data) {
 
         // Pos each bar in X
         const x = startX + i * (barWidth + barGap);
-        const z = 0;
+        const z = -0.12;
 
         // A-Frame boxes
         const bar = document.createElement("a-box");
@@ -115,6 +118,7 @@ function renderGraph(graphRoot, titleElement, data) {
         bar.setAttribute("height", h);
         bar.setAttribute("position", `${x} ${baseY + h / 2 + 0.01} ${z}`);
         bar.setAttribute("color", "#4CC3D9");
+        bar.setAttribute("material", "shader: flat;");
         graphRoot.appendChild(bar);
 
         // Value label above bar
@@ -139,6 +143,8 @@ function renderGraph(graphRoot, titleElement, data) {
         lab.setAttribute("position", `${x} ${baseY + 0.03} ${z + 0.22}`);
         graphRoot.appendChild(lab);
     });
+    // Check if bars are being created
+    console.log("Graph children:", graphRoot.childElementCount);
 }
 
 function addFloatingText(root, text, pos) {
