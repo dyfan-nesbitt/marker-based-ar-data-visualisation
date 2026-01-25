@@ -3,7 +3,7 @@ import { renderBarGraph } from "./vis-bar.js";
 import { startQrWatcher } from "./qr.js";
 import { getArElements } from "./ar.js";
 
-const DEFAULT_DATA_URL = "data/demo.js";
+const DEFAULT_DATA_URL = "data/demo.json";
 
 let currentData = null;
 let exaggeration = 1;

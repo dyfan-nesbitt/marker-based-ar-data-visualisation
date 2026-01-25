@@ -5,6 +5,8 @@ export function getQueryParam(name) {
 
 export async function loadDataFromUrl(url) {
     const resolved = new URL(url, window.location.href).toString();
+    console.log("Fetching:", resolved);
+    
     const res = await fetch(resolved, { cache: "no-store" });
     if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${res.statusText}`);
     return await res.json();
