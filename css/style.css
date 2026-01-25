@@ -23,3 +23,7 @@ body {
   display: block;
   margin-bottom: 4px;
 }
+
+.row { margin-top: 10px; display: grid; gap: 6px; }
+label { font-size: 12px; opacity: 0.9; }
+input[type="range"] { width: 100%; }
