@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (e) {
             console.error(e);
             setStatus(statusElement, "URL load failed");
-            await loadDefault(statusElement, titleElement, graphRoot);
+            await loadDefault({ statusElement, titleElement, graphRoot });
         }
         return;
     }
@@ -94,10 +94,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // marker.addEventListener("markerFound", () => stopQr());
 });
 
-async function loadDefault(statusElement, titleElement, graphRoot) {
+async function loadDefault({ statusElement, titleElement, graphRoot }) {
     try {
         currentData = await loadDataFromUrl(DEFAULT_DATA_URL);
-        titleElement.setAttribute("value", currentData.title?? "Default dataset");
+        titleElement.setAttribute("value", currentData.title ?? "Default dataset");
         setStatus(statusElement, "default data loaded");
 
         if (markerVisible) {
