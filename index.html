@@ -27,7 +27,7 @@
     <div id="hud">
       <b>AR Demo</b>
       Point your camera at the <em>HIRO</em> marker.
-      <div id="status">Status: waiting for marker…</div>
+      <div id="status">Status: waiting for marker.</div>
       <div class="row">
         <label for="exaggeration">Exaggeration</label>
         <input id="exaggeration" type="range" min="0.5" max="3" step="0.1" value="1" />
@@ -41,7 +41,7 @@
       renderer="colorManagement: true"
       arjs="sourceType: webcam; facingMode: environment; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
     >
-      <a-marker preset="hiro" id="marker" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
+      <a-marker preset="hiro" id="marker" smooth="true" smoothCount="5" smoothTolerance="0.01" smoothThreshold="5">
 
         <!-- Container -->
         <a-entity id="graph-root" position="0 0 0 0"></a-entity>

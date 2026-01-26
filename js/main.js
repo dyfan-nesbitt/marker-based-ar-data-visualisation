@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             setStatus(statusElement, "loading data from URL");
             currentData = await loadDataFromUrl(paramUrl);
             titleElement.setAttribute("value", currentData.title ?? "Loaded dataset");
-            setStatus(statusElement, "data laoded");
+            setStatus(statusElement, "data loaded");
             if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
         } catch (e) {
             console.error(e);
@@ -90,8 +90,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             await loadDefault( {statusElement, titleElement, graphRoot });
         }
     }, 5000);
-
-    // marker.addEventListener("markerFound", () => stopQr());
 });
 
 async function loadDefault({ statusElement, titleElement, graphRoot }) {
