@@ -72,8 +72,8 @@ export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
         valText.setAttribute("align", "center");
         valText.setAttribute("width", "1.5");
         valText.setAttribute("color", "#fff");
-        valText.setAttribute("rotation", "-90 0 0");
-        valText.setAttribute("position", `${x} ${baseY + h + 0.12} ${z}`);
+        valText.setAttribute("rotation", "0 0 0"); 
+        valText.setAttribute("position", `${x} ${baseY + h + 0.09} ${z}`);
         graphRoot.appendChild(valText);
 
         // Category label - DYNAMIC
