@@ -83,7 +83,7 @@ function renderGraph(graphRoot, titleElement, data) {
     // Graph layout settings
     const barWidth = 0.18; // width of bars
     const barGap = 0.06; // spacing between bars
-    const baseY = 0.05; // lift off marker 
+    const baseY = 0.15; // lift off marker 
     const chartHeight = 1.0; // max bar height before exaggeration
 
     // Center all bars
