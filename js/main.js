@@ -8,6 +8,7 @@ const DEFAULT_DATA_URL = "data/demo.json";
 let currentData = null;
 let exaggeration = 1;
 let markerVisible = false;
+let chartSize = 2;
 
 function setStatus(statusElement, msg) {
     statusElement.textContent = `Status: ${msg}`;
@@ -16,7 +17,9 @@ function setStatus(statusElement, msg) {
 document.addEventListener("DOMContentLoaded", async () => {
     const { marker, graphRoot, titleElement, statusElement } = getArElements();
 
-    // Slider
+    // -- SLIDERS --
+
+    // Exaggeration
     const exaggerationInput = document.getElementById("exaggeration");
     const exaggerationValue = document.getElementById("exaggerationValue");
 
@@ -25,7 +28,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         exaggerationValue.textContent = `${exaggeration.toFixed(1)}x`;
 
         if (markerVisible && currentData) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+        }
+    });
+
+    // Chart Size
+    const chartSizeInput = document.getElementById("chartSize");
+    const chartSizeValue = document.getElementById("chartSizeValue");
+
+    chartSizeInput.addEventListener("input", () => {
+        chartSize = Number(chartSizeInput.value);
+        chartSizeValue.textContent = `${chartSize.toFixed(1)}x`;
+
+        if (markerVisible && currentData) {
+            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         }
     });
 
@@ -35,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         setStatus(statusElement, "marker found.");
 
         if (currentData) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         } else {
             setStatus(statusElement, "marker found, waiting for data...");
         }
@@ -55,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             currentData = await loadDataFromUrl(paramUrl);
             titleElement.setAttribute("value", currentData.title ?? "Loaded dataset");
             setStatus(statusElement, "data loaded");
-            if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+            if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         } catch (e) {
             console.error(e);
             setStatus(statusElement, "URL load failed");
@@ -75,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentData = await loadDataFromUrl(qrText);
                 titleElement.setAttribute("value", currentData.title ?? "Loaded via QR");
                 setStatus(statusElement, "dataset loaded");
-                if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+                if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
             } catch (e) {
                 console.error(e);
                 setStatus(statusElement, "QR load failed");
@@ -99,7 +115,7 @@ async function loadDefault({ statusElement, titleElement, graphRoot }) {
         setStatus(statusElement, "default data loaded");
 
         if (markerVisible) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         }
     } catch (e) {
         console.error(e);
