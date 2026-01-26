@@ -1,6 +1,8 @@
 {
     "title": "Second dataset",
     "type": "bar",
+    "xAxisLabel": "Month",
+    "yAxisLabel": "People visiting",
     "labels": ["Mon", "Tue", "Wed", "Thu", "Fri"],
     "series": [{"name": "Visits", "values": [4, 2, 7, 3, 6] }]
 }

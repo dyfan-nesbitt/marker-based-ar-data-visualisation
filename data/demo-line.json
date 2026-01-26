@@ -1,6 +1,8 @@
 {
     "title": "Line Chart Demo",
     "type": "line",
+    "xAxisLabel": "Month",
+    "yAxisLabel": "Sales (£k)",
     "labels": ["Jan", "Feb", "Mar", "Apr", "May"],
     "series": [{"name": "Sales", "values": [3, 7, 4, 9, 6]}]
 }
