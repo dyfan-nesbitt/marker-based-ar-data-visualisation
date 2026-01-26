@@ -103,6 +103,28 @@ export function renderLineGraph(graphRoot, titleElement, data, options = {}) {
         graphRoot.appendChild(line);
     }
 
+    if (data.xAxisLabel) {
+        const xLabel = document.createElement("a-text");
+        xLabel.setAttribute("value", data.xAxisLabel);
+        xLabel.setAttribute("align", "center");
+        xLabel.setAttribute("width", (3 * scale).toFixed(2));
+        xLabel.setAttribute("color", "#aaa");
+        xLabel.setAttribute("rotation", "-90 0 0");
+        xLabel.setAttribute("position", `0 ${baseY - 0.5 * scale} ${-0.12 * scale + 0.4 * scale}`);
+        graphRoot.appendChild(xLabel);
+    }
+
+    if (data.yAxisLabel) {
+        const yLabel = document.createElement("a-text");
+        yLabel.setAttribute("value", data.yAxisLabel);
+        yLabel.setAttribute("align", "center");
+        yLabel.setAttribute("width", (3 * scale).toFixed(2));
+        yLabel.setAttribute("color", "#aaa");
+        yLabel.setAttribute("rotation", "0 0 90");
+        yLabel.setAttribute("position", `${-targetChartWidth/2 - 0.3 * scale} ${baseY + chartHeight/2} ${-0.12 * scale}`);
+        graphRoot.appendChild(yLabel);
+    }
+    
     const maxBarHeight = Math.max(...values.map((v) => {
         const norm = v / maxVal;
         return norm * chartHeight * exaggeration;
