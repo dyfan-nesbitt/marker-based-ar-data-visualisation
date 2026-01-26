@@ -1,0 +1,6 @@
+{
+    "title": "Line Chart Demo 2",
+    "type": "line",
+    "labels": ["1000", "1500", "2000", "2500", "3000"],
+    "series": [{"name": "Performance", "values": [1, 2, 3, 5, 10]}]
+}

@@ -1,7 +1,16 @@
 import { getQueryParam, loadDataFromUrl } from "./data.js";
 import { renderBarGraph } from "./vis-bar.js";
+import {renderLineGraph} from "./vis-line.js";
 import { startQrWatcher } from "./qr.js";
 import { getArElements } from "./ar.js";
+
+function renderGraph(graphRoot, titleElement, data, options) {
+    if (data.type === "line") {
+        renderLineGraph(graphRoot, titleElement, data, options);
+    } else {
+        renderBarGraph(graphRoot, titleElement, data, options);
+    }
+}
 
 const DEFAULT_DATA_URL = "data/demo.json";
 
@@ -28,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         exaggerationValue.textContent = `${exaggeration.toFixed(1)}x`;
 
         if (markerVisible && currentData) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         }
     });
 
@@ -41,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         chartSizeValue.textContent = `${chartSize.toFixed(1)}x`;
 
         if (markerVisible && currentData) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         }
     });
 
@@ -51,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         setStatus(statusElement, "marker found.");
 
         if (currentData) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         } else {
             setStatus(statusElement, "marker found, waiting for data...");
         }
@@ -71,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             currentData = await loadDataFromUrl(paramUrl);
             titleElement.setAttribute("value", currentData.title ?? "Loaded dataset");
             setStatus(statusElement, "data loaded");
-            if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         } catch (e) {
             console.error(e);
             setStatus(statusElement, "URL load failed");
@@ -91,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentData = await loadDataFromUrl(qrText);
                 titleElement.setAttribute("value", currentData.title ?? "Loaded via QR");
                 setStatus(statusElement, "dataset loaded");
-                if (markerVisible) renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+                if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
             } catch (e) {
                 console.error(e);
                 setStatus(statusElement, "QR load failed");
@@ -115,7 +124,7 @@ async function loadDefault({ statusElement, titleElement, graphRoot }) {
         setStatus(statusElement, "default data loaded");
 
         if (markerVisible) {
-            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
         }
     } catch (e) {
         console.error(e);

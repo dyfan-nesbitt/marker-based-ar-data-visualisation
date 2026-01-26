@@ -1,6 +1,7 @@
 export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
     const exaggeration = Number(options.exaggeration ?? 1);
     const chartSize = Number(options.chartSize ?? 2);
+    const scale = chartSize / 2;
 
     // Clear old graph
     while(graphRoot.firstChild) graphRoot.removeChild(graphRoot.firstChild);
@@ -10,16 +11,10 @@ export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
     const values = data?.series?.[0].values;
     const labels = data?.labels;
 
-    if (!Array.isArray(values) || !values.length || !Array.isArray(labels) || !labels.length) {
-        addText(graphRoot, "Invalid data", { x:0, y:1, z:0 });
-        return;
-    }
+    if (!Array.isArray(values) || !values.length) return;
 
     const maxVal = Math.max(...values, 1);
     const numBars = values.length;
-
-    // Scale everything by chartSize
-    const scale = chartSize / 2;
 
     // DYNAMIC SIZING based on num of bars
     const targetChartWidth = chartSize;
