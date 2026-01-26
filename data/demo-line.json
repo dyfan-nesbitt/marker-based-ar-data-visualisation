@@ -1,0 +1,6 @@
+{
+    "title": "Line Chart Demo",
+    "type": "line",
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May"],
+    "series": [{"name": "Sales", "values": [3, 7, 4, 9, 6]}]
+}
