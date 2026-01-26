@@ -1,0 +1,6 @@
+{
+    "title": "Third dataset",
+    "type": "bar",
+    "labels": ["Minecraft", "Terraria", "Fortnite"],
+    "series": [{"name": "Downloads", "values": [100000, 10000, 1000000] }]
+}

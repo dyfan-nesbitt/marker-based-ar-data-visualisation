@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Try QR live 
     setStatus(statusElement, "scanning QR for dataset.");
 
-    const stopQr = startQrWatcher({
+    startQrWatcher({
         statusElement,
         onStableChange: async (qrText) => {
             try {
@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(async () => {
         if (!currentData) {
             setStatus(statusElement, "no QR yet, loading default dataset.");
-            await loadDefault(statusElement, titleElement, graphRoot);
+            await loadDefault( {statusElement, titleElement, graphRoot });
         }
     }, 5000);
 
-    marker.addEventListener("markerFound", () => stopQr());
+    // marker.addEventListener("markerFound", () => stopQr());
 });
 
 async function loadDefault(statusElement, titleElement, graphRoot) {
@@ -99,6 +99,10 @@ async function loadDefault(statusElement, titleElement, graphRoot) {
         currentData = await loadDataFromUrl(DEFAULT_DATA_URL);
         titleElement.setAttribute("value", currentData.title?? "Default dataset");
         setStatus(statusElement, "default data loaded");
+
+        if (markerVisible) {
+            renderBarGraph(graphRoot, titleElement, currentData, { exaggeration });
+        }
     } catch (e) {
         console.error(e);
         setStatus(statusElement, "default load failed");
