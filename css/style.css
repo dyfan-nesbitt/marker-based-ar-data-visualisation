@@ -19,9 +19,48 @@ body {
   max-width: 280px;
 }
 
-#hud b {
+.hud_header {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.hud_title b {
   display: block;
   margin-bottom: 4px;
+}
+
+.hud_toggle {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid (255, 255, 255, 0.18);
+  color: white;
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.hud_chevron {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 150ms ease;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.hud_options {
+  margin-top: 10px;
+}
+
+.hud-closed .hud_options {
+  display: none;
+}
+
+.hud-closed .hud_chevron {
+  transform: rotate(-90deg);
 }
 
 .row { margin-top: 10px; display: grid; gap: 6px; }

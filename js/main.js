@@ -28,6 +28,21 @@ function setStatus(statusElement, msg) {
 document.addEventListener("DOMContentLoaded", async () => {
     const { marker, graphRoot, titleElement, statusElement } = getArElements();
 
+    const hud = document.getElementById("hud");
+    const toggleButton = document.getElementById("hudToggle");
+
+    if (hud && toggleButton) {
+        toggleButton.addEventListener("click", () => {
+            const isClosed = hud.classList.contains("hud-closed");
+            
+            hud.classList.toggle("hud-closed", !isClosed);
+            hud.classList.toggle("hud-open", isClosed);
+
+            toggleButton.setAttribute("aria-expanded", String(!isClosed));
+            toggleButton.setAttribute("aria-label", isClosed ? "Show options" : "Hide options");
+        });
+    }
+
     // -- SLIDERS --
 
     // Exaggeration
