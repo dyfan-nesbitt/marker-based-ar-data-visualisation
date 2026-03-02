@@ -1,7 +1,7 @@
 export function renderLineGraph(graphRoot, titleElement, data, options = {}) {
     const exaggeration = Number(options.exaggeration ?? 1);
     const chartSize = Number(options.chartSize ?? 2);
-    const graphColour = options.graphColour ?? "FF6B6B";
+    const graphColour = options.graphColour ?? "#FF6B6B";
     const scale = chartSize / 2;
 
     // Clear old graph

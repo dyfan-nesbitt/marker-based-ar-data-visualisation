@@ -12,12 +12,14 @@ function renderGraph(graphRoot, titleElement, data, options) {
     }
 }
 
-const DEFAULT_DATA_URL = "data/demo.json";
+const DEFAULT_DATA_URL = "data/demo-bar.json";
 
 let currentData = null;
 let exaggeration = 1;
 let markerVisible = false;
 let chartSize = 2;
+let graphColour = "#FFFFFF";
+let graphColourInput = null;  // assign in DOMContentLoaded
 
 function setStatus(statusElement, msg) {
     statusElement.textContent = `Status: ${msg}`;
@@ -55,9 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Chart Colour
-    const graphColourInput = document.getElementById("graphColour");
-
-    let graphColour = "#FFFFFF";
+    graphColourInput = document.getElementById("graphColour");
 
     graphColourInput.addEventListener("input", () => {
         graphColour = graphColourInput.value;
@@ -150,7 +150,7 @@ async function loadDefault({ statusElement, titleElement, graphRoot }) {
         setStatus(statusElement, "default data loaded");
 
         if (markerVisible) {
-            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
         }
     } catch (e) {
         console.error(e);
