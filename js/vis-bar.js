@@ -1,6 +1,7 @@
 export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
     const exaggeration = Number(options.exaggeration ?? 1);
     const chartSize = Number(options.chartSize ?? 2);
+    const graphColour = options.graphColour ?? "4CC3D9";
     const scale = chartSize / 2;
 
     // Clear old graph
@@ -61,7 +62,7 @@ export function renderBarGraph(graphRoot, titleElement, data, options = {}) {
         bar.setAttribute("depth", 0.18 * scale);
         bar.setAttribute("height", h);
         bar.setAttribute("position", `${x} ${baseY + h / 2 + 0.01} ${z}`);
-        bar.setAttribute("color", "#4CC3D9");
+        bar.setAttribute("color", graphColour);
         bar.setAttribute("material", "shader: flat;");
         graphRoot.appendChild(bar);
 

@@ -1,6 +1,7 @@
 export function renderLineGraph(graphRoot, titleElement, data, options = {}) {
     const exaggeration = Number(options.exaggeration ?? 1);
     const chartSize = Number(options.chartSize ?? 2);
+    const graphColour = options.graphColour ?? "FF6B6B";
     const scale = chartSize / 2;
 
     // Clear old graph
@@ -47,7 +48,7 @@ export function renderLineGraph(graphRoot, titleElement, data, options = {}) {
         const sphere = document.createElement("a-sphere");
         sphere.setAttribute("radius", 0.04 * scale);
         sphere.setAttribute("position", `${x} ${y} ${z}`);
-        sphere.setAttribute("color", "#FF6B6B");
+        sphere.setAttribute("color", graphColour);
         sphere.setAttribute("material", "shader: flat;");
         graphRoot.appendChild(sphere);
 
@@ -93,7 +94,7 @@ export function renderLineGraph(graphRoot, titleElement, data, options = {}) {
         line.setAttribute("height", distance);
         line.setAttribute("depth", 0.02 * scale);
         line.setAttribute("position", `${midX} ${midY} ${midZ}`);
-        line.setAttribute("color", "#FF6B6B");
+        line.setAttribute("color", graphColour);
         line.setAttribute("material", "shader: flat;");
 
         // Rotation

@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         exaggerationValue.textContent = `${exaggeration.toFixed(1)}x`;
 
         if (markerVisible && currentData) {
-            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
         }
     });
 
@@ -50,9 +50,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         chartSizeValue.textContent = `${chartSize.toFixed(1)}x`;
 
         if (markerVisible && currentData) {
-            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
         }
     });
+
+    // Chart Colour
+    const graphColourInput = document.getElementById("graphColour");
+
+    let graphColour = "#FFFFFF";
+
+    graphColourInput.addEventListener("input", () => {
+        graphColour = graphColourInput.value;
+
+        if (markerVisible && currentData) {
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
+        }
+    });
+
 
     // Marker
     marker.addEventListener("markerFound", () => {
@@ -60,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         setStatus(statusElement, "marker found.");
 
         if (currentData) {
-            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
         } else {
             setStatus(statusElement, "marker found, waiting for data...");
         }
@@ -79,8 +93,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             setStatus(statusElement, "loading data from URL");
             currentData = await loadDataFromUrl(paramUrl);
             titleElement.setAttribute("value", currentData.title ?? "Loaded dataset");
+            if (currentData.colour) {
+                graphColour = currentData.colour;
+                graphColourInput.value = currentData.colour;
+            }
             setStatus(statusElement, "data loaded");
-            if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+            if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
         } catch (e) {
             console.error(e);
             setStatus(statusElement, "URL load failed");
@@ -99,8 +117,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 setStatus(statusElement, "QR stable");
                 currentData = await loadDataFromUrl(qrText);
                 titleElement.setAttribute("value", currentData.title ?? "Loaded via QR");
+                if (currentData.colour) {
+                    graphColour = currentData.colour;
+                    graphColourInput.value = currentData.colour;
+                }
                 setStatus(statusElement, "dataset loaded");
-                if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize });
+                if (markerVisible) renderGraph(graphRoot, titleElement, currentData, { exaggeration, chartSize, graphColour});
             } catch (e) {
                 console.error(e);
                 setStatus(statusElement, "QR load failed");
@@ -121,6 +143,10 @@ async function loadDefault({ statusElement, titleElement, graphRoot }) {
     try {
         currentData = await loadDataFromUrl(DEFAULT_DATA_URL);
         titleElement.setAttribute("value", currentData.title ?? "Default dataset");
+        if (currentData.colour) {
+            graphColour = currentData.colour;
+            graphColourInput.value = currentData.colour;
+        }
         setStatus(statusElement, "default data loaded");
 
         if (markerVisible) {

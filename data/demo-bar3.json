@@ -1,6 +1,7 @@
 {
     "title": "Third dataset",
     "type": "bar",
+    "colour": "#4CC3D9",
     "xAxisLabel": "Game",
     "yAxisLabel": "Downloads",
     "labels": ["Minecraft", "Terraria", "Fortnite"],

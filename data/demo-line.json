@@ -1,6 +1,7 @@
 {
     "title": "Line Chart Demo",
     "type": "line",
+    "colour": "#FF6B6B",
     "xAxisLabel": "Month",
     "yAxisLabel": "Sales (£k)",
     "labels": ["Jan", "Feb", "Mar", "Apr", "May"],

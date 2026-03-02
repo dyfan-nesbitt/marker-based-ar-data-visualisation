@@ -1,6 +1,7 @@
 {
     "title": "Demo dataset (JSON)",
     "type": "bar",
+    "colour": "#4CC3D9",
     "xAxisLabel": "Quarter",
     "yAxisLabel": "Sales (£k)",
     "labels": ["Q1", "Q2", "Q3", "Q4"],
