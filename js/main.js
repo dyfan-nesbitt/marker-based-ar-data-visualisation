@@ -10,6 +10,7 @@ import {
     timedFetch,
     runBenchmark,
     logResults,
+    copyResults,
     store,
 } from "./metrics.js";
 
@@ -37,6 +38,16 @@ function setStatus(statusElement, msg) {
 document.addEventListener("DOMContentLoaded", async () => {
     const { marker, graphRoot, titleElement, statusElement } = getArElements();
 
+    startFpsMontior();
+    trackMarkerDetection(marker);
+
+    window.metrics = { runBenchmark, logResults, copyResults, store };
+ 
+    const copyBtn = document.getElementById("copyResults");
+    if (copyBtn) {
+        copyBtn.addEventListener("click", copyResults);
+    }
+
     const hud = document.getElementById("hud");
     const toggleButton = document.getElementById("hudToggle");
 
@@ -49,6 +60,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             toggleButton.setAttribute("aria-expanded", String(!isClosed));
             toggleButton.setAttribute("aria-label", isClosed ? "Show options" : "Hide options");
+        });
+    }
+
+    const benchBtn = document.getElementById("runBenchmark");
+    if (benchBtn) {
+        benchBtn.addEventListener("click", () => {
+            benchBtn.disabled = true;
+            benchBtn.textContent = "Running…";
+            setTimeout(() => {
+                runBenchmark();
+                benchBtn.textContent = "Done — check console";
+            }, 50); // small delay so button repaints before blocking
         });
     }
 
@@ -115,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (paramUrl) {
         try {
             setStatus(statusElement, "loading data from URL");
-            currentData = await loadDataFromUrl(paramUrl);
+            currentData = await timedFetch(paramUrl, "url-param");
             titleElement.setAttribute("value", currentData.title ?? "Loaded dataset");
             if (currentData.colour) {
                 graphColour = currentData.colour;
@@ -139,7 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         onStableChange: async (qrText) => {
             try {
                 setStatus(statusElement, "QR stable");
-                currentData = await loadDataFromUrl(qrText);
+                currentData = await timedFetch(qrText, "qr-scan");
                 titleElement.setAttribute("value", currentData.title ?? "Loaded via QR");
                 if (currentData.colour) {
                     graphColour = currentData.colour;
@@ -165,7 +188,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function loadDefault({ statusElement, titleElement, graphRoot }) {
     try {
-        currentData = await loadDataFromUrl(DEFAULT_DATA_URL);
+        currentData = await timedFetch(DEFAULT_DATA_URL, "default");
         titleElement.setAttribute("value", currentData.title ?? "Default dataset");
         if (currentData.colour) {
             graphColour = currentData.colour;
