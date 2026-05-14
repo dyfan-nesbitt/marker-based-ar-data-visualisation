@@ -169,7 +169,7 @@ export async function timedFetch(url, label = "fetch") {
  
 // ─── Full render benchmark suite ─────────────────────────────────────────────
  
-const SIZES   = [4, 8, 12, 16];
+const SIZES   = [4, 8, 12, 16, 32, 64, 128];
 const REPEATS = 5;
  
 export function runBenchmark() {
