@@ -38,7 +38,7 @@ function setStatus(statusElement, msg) {
 document.addEventListener("DOMContentLoaded", async () => {
     const { marker, graphRoot, titleElement, statusElement } = getArElements();
 
-    startFpsMontior();
+    startFpsMonitor();
     trackMarkerDetection(marker);
 
     window.metrics = { runBenchmark, logResults, copyResults, store };
