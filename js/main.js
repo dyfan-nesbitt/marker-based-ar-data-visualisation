@@ -48,6 +48,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         copyBtn.addEventListener("click", copyResults);
     }
 
+    const metricsToggle = document.getElementById("metricsToggle");
+    const metricsPanel  = document.getElementById("metrics-panel");
+    if (metricsToggle && metricsPanel) {
+        metricsToggle.addEventListener("click", () => {
+            const hidden = metricsPanel.style.display === "none" || !metricsPanel.style.display;
+            metricsPanel.style.display = hidden ? "flex" : "none";
+            // Close the HUD so it doesn't block the log panel
+            if (hidden && hud) {
+                hud.classList.add("hud-closed");
+                hud.classList.remove("hud-open");
+                if (toggleButton) {
+                    toggleButton.setAttribute("aria-expanded", "false");
+                    toggleButton.setAttribute("aria-label", "Show options");
+                }
+            }
+        });
+    }
+
     const hud = document.getElementById("hud");
     const toggleButton = document.getElementById("hudToggle");
 
