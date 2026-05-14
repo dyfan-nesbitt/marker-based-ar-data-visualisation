@@ -1,0 +1,9 @@
+{
+    "title": "Monthly Website Visits",
+    "type": "bar",
+    "colour": "#4CC3D9",
+    "xAxisLabel": "Month",
+    "yAxisLabel": "Visits (thousands)",
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    "series": [{ "name": "Visits", "values": [12, 19, 15, 27, 34, 41, 38, 45] }]
+}

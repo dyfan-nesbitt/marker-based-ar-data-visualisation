@@ -1,0 +1,9 @@
+{
+    "title": "Monthly Rainfall",
+    "type": "line",
+    "colour": "#FF6B6B",
+    "xAxisLabel": "Month",
+    "yAxisLabel": "Rainfall (mm)",
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "series": [{ "name": "Rainfall", "values": [85, 63, 71, 52, 58, 44, 40, 48, 61, 74, 88, 92] }]
+}

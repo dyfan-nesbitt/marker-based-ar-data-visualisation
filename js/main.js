@@ -4,6 +4,15 @@ import {renderLineGraph} from "./vis-line.js";
 import { startQrWatcher } from "./qr.js";
 import { getArElements } from "./ar.js";
 
+import {
+    startFpsMonitor,
+    trackMarkerDetection,
+    timedFetch,
+    runBenchmark,
+    logResults,
+    store,
+} from "./metrics.js";
+
 function renderGraph(graphRoot, titleElement, data, options) {
     if (data.type === "line") {
         renderLineGraph(graphRoot, titleElement, data, options);

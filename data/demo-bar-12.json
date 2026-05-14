@@ -1,0 +1,9 @@
+{
+    "title": "Average Monthly Temperature",
+    "type": "bar",
+    "colour": "#4CC3D9",
+    "xAxisLabel": "Month",
+    "yAxisLabel": "Temp (°C)",
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "series": [{ "name": "Temperature", "values": [4, 5, 7, 10, 14, 17, 19, 18, 15, 11, 7, 5] }]
+}

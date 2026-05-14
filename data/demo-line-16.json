@@ -1,0 +1,9 @@
+{
+    "title": "Share Price (16 Days)",
+    "type": "line",
+    "colour": "#FF6B6B",
+    "xAxisLabel": "Day",
+    "yAxisLabel": "Price (£)",
+    "labels": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14", "D15", "D16"],
+    "series": [{ "name": "Price", "values": [142, 138, 145, 151, 148, 155, 162, 158, 167, 171, 165, 173, 179, 176, 183, 188] }]
+}
